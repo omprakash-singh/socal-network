@@ -1,9 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-title>Best Friends</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="container">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <h1>REGISTER</h1>
+      <ion-item fill="outline">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" required email name="email" placeholder="Enter Email" ngModel></ion-input>
+      </ion-item>
+      <ion-item fill="outline">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" required minlength="6" name="password" placeholder="Enter Password"
+          ngModel></ion-input>
+      </ion-item>
+      <ion-item fill="outline">
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="password" required minlength="6" name="confirm_password" placeholder="Confirm Password"
+          ngModel></ion-input>
+      </ion-item>
+      <ion-button type="submit" [disabled]="!(form.valid) || !(form.value.password === form.value.confirm_password)"
+        expand="block" color="success">register</ion-button>
+      <a style="float: left; margin-top: 10px; text-decoration: none;" [routerLink]="['/auth/login']">Login User?</a>
+    </form>
 
+  </div>
 </ion-content>
+
+
+<footer style="text-align: center;">
+  <p>
+    OMPRAKASH SINGH PRODUCTION
+  </p>
+</footer>
