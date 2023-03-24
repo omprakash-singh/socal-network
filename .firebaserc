@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "social-network-c91d6": {
+      "hosting": {
+        "app": [
+          "social-network-c91d6"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "social-network-c91d6"
+  }
+}

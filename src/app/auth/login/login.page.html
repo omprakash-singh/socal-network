@@ -3,11 +3,12 @@
     <ion-title>Best Friends</ion-title>
   </ion-toolbar>
 </ion-header>
-
+<ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
 <ion-content>
   <div class="container">
     <form (ngSubmit)="onSubmit(form)" #form="ngForm">
       <h1>LOGIN</h1>
+      <span *ngIf="error" class="auth-error">Incorrect Email or Password?</span>
       <ion-item fill="outline">
         <ion-label position="floating">Email</ion-label>
         <ion-input type="email" required email name="email" placeholder="Enter Email" ngModel></ion-input>
