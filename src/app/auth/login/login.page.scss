@@ -1,0 +1,23 @@
+form {
+     text-align: center;
+     width: 400px;
+
+     ion-item {
+          margin-top: 5px;
+     }
+}
+
+.container {
+     padding: 10px;
+}
+
+.other-link {
+     a {
+          text-decoration: none;
+     }
+
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     margin: 15px;
+}
