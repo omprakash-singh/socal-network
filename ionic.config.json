@@ -1,0 +1,7 @@
+{
+  "name": "Socal network",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
