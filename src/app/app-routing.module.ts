@@ -10,11 +10,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: '',
-    redirectTo: '/',
-    pathMatch: 'full'
-  },
-  {
     path: 'auth/login',
     loadChildren: ()=> import('./auth/login/login.module').then(m=>m.LoginPageModule),
     canActivate: [IsLoginGuard]
@@ -28,7 +23,20 @@ const routes: Routes = [
     path: 'auth/forgotten-password',
     loadChildren: ()=> import('./auth/forgotten-password/forgotten-password.module').then(m=> m.ForgottenPasswordPageModule),
     canActivate: [IsLoginGuard]
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./HomePages/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./HomePages/search/search.module').then( m => m.SearchPageModule)
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./HomePages/user/user.module').then( m => m.UserPageModule)
   }
+
 
 ];
 

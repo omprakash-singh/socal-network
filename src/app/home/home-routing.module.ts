@@ -4,9 +4,34 @@ import { HomePage } from './home.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomePage,
+    children: [
+      {
+        path: 'search',
+        loadChildren: ()=>import('../HomePages/search/search.module').then((m)=>m.SearchPageModule)
+      }, 
+      {
+        path: 'user',
+        loadChildren: ()=>import('../HomePages/user/user.module').then(m=>m.UserPageModule)
+      },
+      {
+        path: 'post',
+        loadChildren: ()=> import('../HomePages/home/home.module').then(m=>m.HomePageModule)
+      },
+      {
+        path: '',
+        redirectTo: '/home/post',
+        pathMatch: 'full'
+      }
+    ]
+  }, 
+  {
+    path: '',
+    redirectTo: '/home/post',
+    pathMatch: 'full'
   }
+  
 ];
 
 @NgModule({
