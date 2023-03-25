@@ -1,0 +1,42 @@
+.user-profile {
+     img {
+          width: 150px;
+          height: 150px;
+          border-radius: 100%;
+          padding: 12px;
+
+     }
+
+     text-align: center;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-wrap: wrap;
+}
+
+ion-content {
+
+     padding: auto;
+
+     .user-image {
+          width: 100px;
+          height: 100px;
+          border-radius: 100%;
+     }
+
+     .user {
+          text-align: center;
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+
+          ion-card {
+               width: 300px;
+          }
+     }
+
+     .btn-group {
+          display: flex;
+          justify-content: space-between;
+     }
+}

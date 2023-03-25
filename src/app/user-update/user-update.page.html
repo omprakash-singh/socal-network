@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Update</ion-title>
+  </ion-toolbar>
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="container">
+    <div class="contain">
+      <div class="message" *ngIf="isEmailSend" style="text-align: center; color: green;">
+        <p>
+          Check your Email!
+        </p>
+      </div>
+
+      <div class="user">
+        <ion-card>
+          <ion-card-content>
+            <div class="user-profile">
+              <img [src]="imageUrl" alt="profile_pic">
+              <input type="file" name="profile_pic" id="" (change)="profilePictureUplaod($event)">
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <div class="user-detail">
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+          <ion-item fill="outline">
+            <ion-label position="floating">Name</ion-label>
+            <ion-input type="text" placeholder="Enter name" [value]="UserName" name="displayName" required
+              ngModel></ion-input>
+          </ion-item>
+          <ion-item fill="outline" style="margin-top: 10px;">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input placeholder="Enter Email" [value]="email" type="email" name="email" ngModel email></ion-input>
+          </ion-item>
+          <ion-button expand="block" [disabled]="(isVerified)" (click)="presentAlert()">Click
+            Me</ion-button>
+          <div class="btn-group">
+            <ion-button color="secondary" [routerLink]="['/home/post']"
+              [disabled]="(UserName === null) ||(!isVerified)">Secondary</ion-button>
+            <ion-button type="submit" color="success" [disabled]="!form.valid">Success</ion-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>
