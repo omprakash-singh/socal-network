@@ -5,11 +5,15 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="user">
     <ion-card>
       <ion-card-content>
         <img class="user-image" src="https://ionic-docs-demo-v6.vercel.app/assets/madison.jpg" alt="user">
-        <h1>omprakash singh</h1>
+        <h1 style="text-transform: capitalize;">omprakash singh</h1>
       </ion-card-content>
     </ion-card>
   </div>
@@ -42,7 +46,7 @@
         <ion-icon name="document"></ion-icon>
       </ion-fab-button>
 
-      <ion-fab-button>
+      <ion-fab-button [routerLink]="['/user-update']">
         <ion-icon name="person"></ion-icon>
       </ion-fab-button>
 

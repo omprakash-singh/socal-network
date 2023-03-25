@@ -25,17 +25,11 @@ const routes: Routes = [
     canActivate: [IsLoginGuard]
   },
   {
-    path: 'home',
-    loadChildren: () => import('./HomePages/home/home.module').then( m => m.HomePageModule)
-  },
-  {
-    path: 'search',
-    loadChildren: () => import('./HomePages/search/search.module').then( m => m.SearchPageModule)
-  },
-  {
-    path: 'user',
-    loadChildren: () => import('./HomePages/user/user.module').then( m => m.UserPageModule)
+    path: 'user-update',
+    loadChildren: () => import('./user-update/user-update.module').then( m => m.UserUpdatePageModule),
+    canActivate: [AuthGuard]
   }
+
 
 
 ];
