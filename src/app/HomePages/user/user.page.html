@@ -1,13 +1,54 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>user</ion-title>
+    <ion-title>USER</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <p>
-    user activity,
-    like: update profile, password etc
-    post: picture
-  </p>
+  <div class="user">
+    <ion-card>
+      <ion-card-content>
+        <img class="user-image" src="https://ionic-docs-demo-v6.vercel.app/assets/madison.jpg" alt="user">
+        <h1>omprakash singh</h1>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div class="post-container">
+    <div class="post">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title style="text-transform: capitalize;">omprakash singh</ion-card-title>
+          <ion-card-subtitle>05-Aug-2010</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          {{(Readmore) ? longText : longText | slice:0:30}} <span *ngIf="!Readmore">... </span>
+          <a href="javascript:;" *ngIf="!Readmore" (click)="Readmore=true" style="text-decoration: none;">Read More</a>
+          <a href="javascript:;" *ngIf="Readmore" (click)="Readmore=false" style="text-decoration: none;">Read Less</a>
+          <ion-img src="https://ionic-docs-demo-v6.vercel.app/assets/madison.jpg" alt="user"></ion-img>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>
+        <ion-icon name="document"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button>
+        <ion-icon name="person"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button (click)="onLogout()">
+        <ion-icon name="exit"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

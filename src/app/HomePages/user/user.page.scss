@@ -1,0 +1,29 @@
+ion-content {
+     padding: auto;
+
+     .user-image {
+          width: 100px;
+          height: 100px;
+          border-radius: 100%;
+     }
+
+     .user {
+          text-align: center;
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+
+          ion-card {
+               width: 300px;
+          }
+     }
+
+     .post {
+          display: flex;
+          justify-content: space-around;
+
+          ion-card {
+               width: 800px;
+          }
+     }
+}
