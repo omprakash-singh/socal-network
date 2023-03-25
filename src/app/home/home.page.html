@@ -1,21 +1,16 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      HOME
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="post">
+      <ion-icon aria-hidden="true" name="home"></ion-icon>
+    </ion-tab-button>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">HOME</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <div id="container">
-    <p>
-      project is in process...
-      <a href="/auth/login">Login</a>
-    </p>
-  </div>
-</ion-content>
+    <ion-tab-button tab="search">
+      <ion-icon aria-hidden="true" name="search"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="user">
+      <ion-icon aria-hidden="true" name="person"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>
