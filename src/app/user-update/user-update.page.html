@@ -6,10 +6,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
   <div class="container">
     <div class="contain">
       <div class="message" *ngIf="isEmailSend" style="text-align: center; color: green;">
@@ -17,7 +13,6 @@
           Check your Email!
         </p>
       </div>
-
       <div class="user">
         <ion-card>
           <ion-card-content>
@@ -40,15 +35,19 @@
             <ion-label position="floating">Email</ion-label>
             <ion-input placeholder="Enter Email" [value]="email" type="email" name="email" ngModel email></ion-input>
           </ion-item>
-          <ion-button expand="block" [disabled]="(isVerified)" (click)="presentAlert()">Click
-            Me</ion-button>
+          <ion-button expand="block" [disabled]="(isVerified)" (click)="presentAlert()">Verify Email</ion-button>
           <div class="btn-group">
             <ion-button color="secondary" [routerLink]="['/home/post']"
-              [disabled]="(UserName === null) ||(!isVerified)">Secondary</ion-button>
-            <ion-button type="submit" color="success" [disabled]="!form.valid">Success</ion-button>
+              [disabled]="(UserName === null) ||(!isVerified)">Home</ion-button>
+            <ion-button type="submit" color="success" [disabled]="!form.valid">Update</ion-button>
           </div>
         </form>
       </div>
     </div>
   </div>
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
 </ion-content>
