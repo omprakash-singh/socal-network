@@ -12,8 +12,8 @@
   <div class="user">
     <ion-card>
       <ion-card-content>
-        <img class="user-image" src="https://ionic-docs-demo-v6.vercel.app/assets/madison.jpg" alt="user">
-        <h1 style="text-transform: capitalize;">omprakash singh</h1>
+        <img class="user-image" [src]="profileImg" alt="user">
+        <h1 style="text-transform: capitalize;">{{userName}}</h1>
       </ion-card-content>
     </ion-card>
   </div>
@@ -26,9 +26,14 @@
         </ion-card-header>
 
         <ion-card-content>
-          {{(Readmore) ? longText : longText | slice:0:30}} <span *ngIf="!Readmore">... </span>
-          <a href="javascript:;" *ngIf="!Readmore" (click)="Readmore=true" style="text-decoration: none;">Read More</a>
-          <a href="javascript:;" *ngIf="Readmore" (click)="Readmore=false" style="text-decoration: none;">Read Less</a>
+          <div class="post-content" *ngIf="longText.length>0">
+
+            {{(Readmore) ? longText : longText | slice:0:30}} <span *ngIf="!Readmore">... </span>
+            <a href="javascript:;" *ngIf="!Readmore" (click)="Readmore=true" style="text-decoration: none;">Read
+              More</a>
+            <a href="javascript:;" *ngIf="Readmore" (click)="Readmore=false" style="text-decoration: none;">Read
+              Less</a>
+          </div>
           <ion-img src="https://ionic-docs-demo-v6.vercel.app/assets/madison.jpg" alt="user"></ion-img>
         </ion-card-content>
       </ion-card>
@@ -42,7 +47,7 @@
       <ion-icon name="chevron-up-circle"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button>
+      <ion-fab-button [routerLink]="['/post']">
         <ion-icon name="document"></ion-icon>
       </ion-fab-button>
 

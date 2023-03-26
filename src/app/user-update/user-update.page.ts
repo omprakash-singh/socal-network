@@ -5,6 +5,7 @@ import { Storage, getDownloadURL, ref, uploadBytesResumable } from '@angular/fir
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from '../service/auth.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class UserUpdatePage implements OnInit {
     private router: Router,
     private firestore: Firestore,
     private storage: Storage,
-    private alertController: AlertController
+    private alertController: AlertController,
   ) { }
 
 
@@ -29,24 +30,20 @@ export class UserUpdatePage implements OnInit {
   email: string = "";
   isVerified: boolean = false;
 
-  ngOnInit() {
-    this.isLoading = true;
+  setUser(): void {
     onAuthStateChanged(this.auth, (doc) => {
       this.email = doc?.email as any;
       this.UserName = doc?.displayName as any;
       this.imageUrl = doc?.photoURL as any
       this.isVerified = doc?.emailVerified as any;
     })
-
-    this.isLoading = false;
   }
 
-  handleRefresh(event: any) {
-    setTimeout(() => {
-      window.location.reload();
-      event.target.complete();
-    }, 2000);
-  };
+  ngOnInit() {
+    this.isLoading = true;
+    this.setUser()
+    this.isLoading = false;
+  }
 
   async profilePictureUplaod(event: any) {
     this.isLoading = true;
@@ -67,7 +64,6 @@ export class UserUpdatePage implements OnInit {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL: string) => {
-          console.log('File available at', downloadURL);
           this.imageUrl = downloadURL
           const user: User | null = this.auth.currentUser
           updateProfile(user as any, {
@@ -137,6 +133,15 @@ export class UserUpdatePage implements OnInit {
     await alert.present();
 
   }
+
+
+
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      this.ngOnInit();
+      window.location.reload();
+    }, 2000);
+  };
 
 
 }

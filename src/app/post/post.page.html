@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="contain" style="width: 600px; padding: 20px;">
+      <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <ion-img *ngIf="postImage.length > 0" [src]="postImage" alt="post image"></ion-img>
+        <input type="file" name="profile_pic" id="" (change)="postPictureUplaod($event)">
+        <ion-item counter="true" style="margin-top: 10px;">
+          <ion-label position="floating">Post</ion-label>
+          <ion-input maxlength="200" type="text" required minlength="10" ngModel name="post"></ion-input>
+        </ion-item>
+        <ion-button [disabled]="!form.valid" type="submit" expand="block">submit</ion-button>
+        <a [routerLink]="['/home/post']" style="text-decoration: none; padding-top: 10px;">Home</a>
+      </form>
+    </div>
+  </div>
+</ion-content>
