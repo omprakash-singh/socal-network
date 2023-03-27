@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/user"></ion-back-button>
+    </ion-buttons>
     <ion-title>Update</ion-title>
   </ion-toolbar>
   <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
@@ -35,10 +38,8 @@
             <ion-label position="floating">Email</ion-label>
             <ion-input placeholder="Enter Email" [value]="email" type="email" name="email" ngModel email></ion-input>
           </ion-item>
-          <ion-button expand="block" [disabled]="(isVerified)" (click)="presentAlert()">Verify Email</ion-button>
           <div class="btn-group">
-            <ion-button color="secondary" [routerLink]="['/home/post']"
-              [disabled]="(UserName === null) ||(!isVerified)">Home</ion-button>
+            <ion-button [disabled]="(isVerified)" (click)="presentAlert()">Verify Email</ion-button>
             <ion-button type="submit" color="success" [disabled]="!form.valid">Update</ion-button>
           </div>
         </form>

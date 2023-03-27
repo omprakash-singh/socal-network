@@ -21,9 +21,19 @@ ion-content {
      .post {
           display: flex;
           justify-content: space-around;
-
-          ion-card {
-               width: 800px;
-          }
      }
+}
+
+ion-card-header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+}
+
+.container {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     height: 100%;
 }
