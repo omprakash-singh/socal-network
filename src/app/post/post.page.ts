@@ -53,6 +53,7 @@ export class PostPage implements OnInit {
     console.log(this.postImage);
     console.log(data.value);
     this.postService.uploadPost(this.postImage, data.value.post);
+    data.resetForm();
   }
 
 }

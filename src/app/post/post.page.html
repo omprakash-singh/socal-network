@@ -1,8 +1,12 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/user"></ion-back-button>
+    </ion-buttons>
     <ion-title>Post</ion-title>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content>
   <div class="container">
@@ -15,7 +19,6 @@
           <ion-input maxlength="200" type="text" required minlength="10" ngModel name="post"></ion-input>
         </ion-item>
         <ion-button [disabled]="!form.valid" type="submit" expand="block">submit</ion-button>
-        <a [routerLink]="['/home/post']" style="text-decoration: none; padding-top: 10px;">Home</a>
       </form>
     </div>
   </div>
