@@ -11,7 +11,11 @@ import { PostService } from '../service/post.service';
 })
 export class PostPage implements OnInit {
 
-  constructor(private storage: Storage, private auth: Auth, private postService: PostService) { }
+  constructor(
+    private storage: Storage,
+    private auth: Auth,
+    private postService: PostService
+  ) { }
 
   postImage: string = "";
   isLoading: boolean = false;
@@ -32,7 +36,6 @@ export class PostPage implements OnInit {
     uploadTask.on('state_changed',
       (snapshot) => {
         const progress = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-
       },
       (error) => {
         this.isLoading = false;
@@ -50,10 +53,10 @@ export class PostPage implements OnInit {
   }
 
   onSubmit(data: NgForm) {
-    console.log(this.postImage);
-    console.log(data.value);
+    this.isLoading = true;
     this.postService.uploadPost(this.postImage, data.value.post);
     data.resetForm();
+    this.isLoading = false;
   }
 
 }

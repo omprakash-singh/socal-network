@@ -5,21 +5,30 @@
     </ion-buttons>
     <ion-title>Post</ion-title>
   </ion-toolbar>
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
 </ion-header>
 
 
 <ion-content>
   <div class="container">
     <div class="contain" style="width: 600px; padding: 20px;">
-      <form (ngSubmit)="onSubmit(form)" #form="ngForm">
-        <ion-img *ngIf="postImage.length > 0" [src]="postImage" alt="post image"></ion-img>
-        <input type="file" name="profile_pic" id="" (change)="postPictureUplaod($event)">
-        <ion-item counter="true" style="margin-top: 10px;">
-          <ion-label position="floating">Post</ion-label>
-          <ion-input maxlength="200" type="text" required minlength="10" ngModel name="post"></ion-input>
-        </ion-item>
-        <ion-button [disabled]="!form.valid" type="submit" expand="block">submit</ion-button>
-      </form>
+      <ion-card>
+        <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+          <ion-img *ngIf="postImage.length > 0" [src]="postImage" alt="post image"></ion-img>
+          <ion-card-header>
+            <ion-card-title>New Post</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <input type="file" name="profile_pic" id="" (change)="postPictureUplaod($event)">
+            <ion-item counter="true" style="margin-top: 10px;">
+              <ion-label position="floating">Post</ion-label>
+              <ion-input maxlength="200" type="text" required minlength="10" ngModel name="post"></ion-input>
+            </ion-item>
+            <ion-button [disabled]="!form.valid || isLoading" type="submit" expand="block">submit</ion-button>
+          </ion-card-content>
+        </form>
+      </ion-card>
     </div>
   </div>
 </ion-content>
