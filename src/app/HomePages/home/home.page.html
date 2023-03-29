@@ -9,16 +9,16 @@
   <div class="ion-list">
     <div class="ion-item" *ngFor="let item of items; let index">
       <ion-card>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+        <img *ngIf="item.imageUrl.length > 0" alt="Silhouette of mountains" [src]="item.imageUrl" />
         <ion-card-header>
-          <ion-card-title>Card Title</ion-card-title>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+          <ion-card-title>
+            {{item.writerName | titlecase}}
+          </ion-card-title>
         </ion-card-header>
-
         <ion-card-content>
-          <div class="post-content" *ngIf="longText.length>0">
+          <div class="post-content" *ngIf="item.post.length > 0">
 
-            {{(Readmore) ? longText : longText | slice:0:30}} <span *ngIf="!Readmore">... </span>
+            {{(Readmore) ? item.post : item.Post | slice:0:30}} <span *ngIf="!Readmore">... </span>
             <a href="javascript:;" *ngIf="!Readmore" (click)="Readmore=true" style="text-decoration: none;">Read
               More</a>
             <a href="javascript:;" *ngIf="Readmore" (click)="Readmore=false" style="text-decoration: none;">Read
@@ -28,7 +28,4 @@
       </ion-card>
     </div>
   </div>
-  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 </ion-content>

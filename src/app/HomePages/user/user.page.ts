@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
-import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
+import { PostService } from 'src/app/service/post.service';
+import { collection, query, where, getDocs, limit } from "firebase/firestore";
+import { Firestore, deleteDoc, doc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-user',
@@ -16,7 +18,9 @@ export class UserPage implements OnInit {
     private authService: AuthService,
     private router: Router,
     private auth: Auth,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private postService: PostService,
+    private fireStore: Firestore
   ) { }
 
   Readmore: boolean = false;
@@ -38,10 +42,23 @@ export class UserPage implements OnInit {
     this.longText = `this is for testing perpose show`;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.setPostInt();
     this.setUserInt();
-    this.generateItems();
+    const uid = this.auth.currentUser?.uid
+
+    const q = query(collection(this.fireStore, "post"), where("uid", "==", uid));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      // console.log(doc.id, " => ", doc.data());
+      this.items.push({
+        data: doc.data(),
+        id: doc.id
+      });
+    });
+
   }
 
 
@@ -58,23 +75,12 @@ export class UserPage implements OnInit {
     })
   }
 
-  private generateItems() {
-    const count = this.items.length + 1;
-    for (let i = 0; i < 10; i++) {
-      this.items.push(`Item ${count + i}`);
-    }
-  }
 
-  onIonInfinite(ev: any) {
-    this.generateItems();
-    setTimeout(() => {
-      (ev as InfiniteScrollCustomEvent).target.complete();
-    }, 500);
-  }
 
   result: string = "";
 
-  async presentActionSheet() {
+  async presentActionSheet(id: string) {
+    const db = this.fireStore;
     const actionSheet = await this.actionSheetCtrl.create({
       buttons: [
         {
@@ -83,11 +89,11 @@ export class UserPage implements OnInit {
           data: {
             action: 'delete',
           },
-        },
-        {
-          text: 'Edit',
-          data: {
-            action: 'Edit',
+          async handler() {
+            console.log(id);
+            await deleteDoc(doc(db, "post", id)).then((s) => {
+              window.location.reload()
+            })
           },
         },
         {

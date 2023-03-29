@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Storage, getDownloadURL, ref, uploadBytesResumable } from '@angular/fire/storage';
 import { Auth } from '@angular/fire/auth';
 import { PostService } from '../service/post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -14,7 +15,8 @@ export class PostPage implements OnInit {
   constructor(
     private storage: Storage,
     private auth: Auth,
-    private postService: PostService
+    private postService: PostService,
+    private router: Router
   ) { }
 
   postImage: string = "";
@@ -31,7 +33,7 @@ export class PostPage implements OnInit {
     const metadata = {
       contentType: 'image/jpeg'
     };
-    const storageRef = ref(this.storage, 'post/' + user);
+    const storageRef = ref(this.storage, 'post/' + file.name);
     const uploadTask = uploadBytesResumable(storageRef, file, metadata);
     uploadTask.on('state_changed',
       (snapshot) => {
@@ -53,8 +55,11 @@ export class PostPage implements OnInit {
   }
 
   onSubmit(data: NgForm) {
-    this.isLoading = true;
-    this.postService.uploadPost(this.postImage, data.value.post);
+    const user = this.auth.currentUser?.displayName
+    this.postService.uploadPost(this.postImage, data.value.post, user).subscribe(() => {
+      this.isLoading = true;
+      this.router.navigate(['/home/user']);
+    });
     data.resetForm();
     this.isLoading = false;
   }

@@ -22,20 +22,21 @@
       <div class="ion-list">
         <div class="ion-item" *ngFor="let item of items; let index">
           <ion-card>
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+            <!-- {{item.data.post}} -->
+            <ion-img *ngIf="item.data.imageUrl.length > 0" alt="Silhouette of mountains"
+              [src]="item.data.imageUrl"></ion-img>
             <ion-card-header>
               <div>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+                <ion-card-title>{{userName | titlecase}}</ion-card-title>
               </div>
-              <ion-button (click)="presentActionSheet()" fill="clear">
+              <ion-button (click)="presentActionSheet(item.id)" fill="clear" style="text-align: center;">
                 <ion-icon name="ellipsis-vertical-outline"></ion-icon>
               </ion-button>
             </ion-card-header>
             <ion-card-content>
-              <div class="post-content" *ngIf="longText.length>0">
+              <div class="post-content" *ngIf="item.data.post.length > 0">
 
-                {{(Readmore) ? longText : longText | slice:0:30}} <span *ngIf="!Readmore">... </span>
+                {{(Readmore) ? item.data.post : item.data.post | slice:0:30}} <span *ngIf="!Readmore">... </span>
                 <a href="javascript:;" *ngIf="!Readmore" (click)="Readmore=true" style="text-decoration: none;">Read
                   More</a>
                 <a href="javascript:;" *ngIf="Readmore" (click)="Readmore=false" style="text-decoration: none;">Read
@@ -69,8 +70,4 @@
     </ion-fab-list>
   </ion-fab>
 
-
-  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 </ion-content>

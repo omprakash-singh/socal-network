@@ -1,12 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Toolbar</ion-title>
+    <ion-title>Search</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <p>search all user</p>
+
+<ion-content style="margin-top: 18px;">
+  <div class="ion-list">
+    <div class="ion-item" *ngFor="let item of items; let index">
+      <ion-card>
+        <img *ngIf="item.imageUrl.length > 0" alt="Silhouette of mountains" [src]="item.imageUrl" />
+
+        <ion-card-header>
+          <ion-card-title>
+            {{item.writerName | titlecase}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="post-content" *ngIf="item.post.length > 0">
+
+            {{(Readmore) ? item.post : item.Post | slice: 0:40}} <span *ngIf="!Readmore">... </span>
+            <a href="javascript:;" *ngIf="!Readmore" (click)="Readmore=true" style="text-decoration: none;">Read
+              More</a>
+            <a href="javascript:;" *ngIf="Readmore" (click)="Readmore=false" style="text-decoration: none;">Read
+              Less</a>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>

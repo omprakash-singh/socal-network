@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-import { InfiniteScrollCustomEvent } from '@ionic/angular';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
+import { query } from '@angular/fire/database';
+import { Firestore, collection, doc, getDoc, getDocs, where } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-home',
@@ -9,26 +10,29 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
 
+  constructor(
+    private firestore: Firestore,
+    private auth: Auth
+  ) { }
   items: any = [];
   Readmore: boolean = false;
-  longText: string = `this is my testing post title show`;
+  userName: string = '';
 
-  ngOnInit() {
-    this.generateItems();
+  setUserInt(): void {
+    onAuthStateChanged(this.auth, (doc) => {
+      if (doc) {
+        this.userName = doc.displayName as any
+      }
+    })
   }
 
-  private generateItems() {
-    const count = this.items.length + 1;
-    for (let i = 0; i < 20; i++) {
-      this.items.push(`Item ${count + i}`);
-    }
-  }
+  async ngOnInit() {
 
-  onIonInfinite(ev: any) {
-    this.generateItems();
-    setTimeout(() => {
-      (ev as InfiniteScrollCustomEvent).target.complete();
-    }, 500);
-  }
+    const colRef = collection(this.firestore, 'post');
+    const docsSnap = await getDocs(colRef)
 
+    docsSnap.forEach(doc => {
+      this.items.push(doc.data());
+    })
+  }
 }
