@@ -1,13 +1,73 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>user</ion-title>
+    <ion-title>USER</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <p>
-    user activity,
-    like: update profile, password etc
-    post: picture
-  </p>
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="user">
+    <ion-card>
+      <ion-card-content>
+        <img class="user-image" [src]="profileImg" alt="user">
+        <h1 style="text-transform: capitalize;">{{userName}}</h1>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div class="post-container">
+    <div class="post">
+      <div class="ion-list">
+        <div class="ion-item" *ngFor="let item of items; let index">
+          <ion-card>
+            <!-- {{item.data.post}} -->
+            <ion-img *ngIf="item.data.imageUrl.length > 0" alt="Silhouette of mountains"
+              [src]="item.data.imageUrl"></ion-img>
+            <ion-card-header>
+              <div>
+                <ion-card-title>{{userName | titlecase}}</ion-card-title>
+              </div>
+              <ion-button (click)="presentActionSheet(item.id)" fill="clear" style="text-align: center;">
+                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+              </ion-button>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="post-content" *ngIf="item.data.post.length > 0">
+
+                {{(Readmore) ? item.data.post : item.data.post | slice:0:30}} <span *ngIf="!Readmore">... </span>
+                <a href="javascript:;" *ngIf="!Readmore" (click)="Readmore=true" style="text-decoration: none;">Read
+                  More</a>
+                <a href="javascript:;" *ngIf="Readmore" (click)="Readmore=false" style="text-decoration: none;">Read
+                  Less</a>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button [routerLink]="['/post']">
+        <ion-icon name="document"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button [routerLink]="['/user-update']">
+        <ion-icon name="person"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button (click)="onLogout()">
+        <ion-icon name="exit"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
 </ion-content>

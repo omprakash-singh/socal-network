@@ -1,23 +1,28 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule, OnInit } from '@angular/core';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
+import { UserGuard } from '../Guard/user.guard';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomePage,
+    canActivate: [UserGuard],
     children: [
       {
         path: 'search',
-        loadChildren: ()=>import('../HomePages/search/search.module').then((m)=>m.SearchPageModule)
+        loadChildren: ()=>import('../HomePages/search/search.module').then((m)=>m.SearchPageModule),
+        canActivate: [UserGuard],
       }, 
       {
         path: 'user',
-        loadChildren: ()=>import('../HomePages/user/user.module').then(m=>m.UserPageModule)
+        loadChildren: ()=>import('../HomePages/user/user.module').then(m=>m.UserPageModule),
+        canActivate: [UserGuard],
       },
       {
         path: 'post',
-        loadChildren: ()=> import('../HomePages/home/home.module').then(m=>m.HomePageModule)
+        loadChildren: ()=> import('../HomePages/home/home.module').then(m=>m.HomePageModule),
+        canActivate: [UserGuard],
       },
       {
         path: '',
@@ -38,4 +43,9 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class HomePageRoutingModule {}
+export class HomePageRoutingModule implements OnInit {
+  constructor() {}
+  ngOnInit() {
+    
+  }
+}

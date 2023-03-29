@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import { from } from 'rxjs';
 
 @Injectable({
@@ -7,13 +7,13 @@ import { from } from 'rxjs';
 })
 export class AuthService {
 
-  constructor(private auth:Auth) { }
+  constructor(private auth: Auth) { }
 
-  register(email:string, password:string) {
+  register(email: string, password: string) {
     return from(createUserWithEmailAndPassword(this.auth, email, password));
   }
 
-  login(email: string, password:string) {
+  login(email: string, password: string) {
     return from(signInWithEmailAndPassword(this.auth, email, password));
   }
 
@@ -24,4 +24,5 @@ export class AuthService {
   signOut() {
     return from(signOut(this.auth));
   }
+
 }

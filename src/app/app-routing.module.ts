@@ -6,36 +6,36 @@ import { IsLoginGuard } from './Guard/is-login.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'auth/login',
-    loadChildren: ()=> import('./auth/login/login.module').then(m=>m.LoginPageModule),
+    loadChildren: () => import('./auth/login/login.module').then(m => m.LoginPageModule),
     canActivate: [IsLoginGuard]
-  }, 
+  },
   {
     path: 'auth/register',
-    loadChildren: ()=> import('./auth/register/register.module').then(m=> m.RegisterPageModule),
+    loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterPageModule),
     canActivate: [IsLoginGuard]
   },
   {
     path: 'auth/forgotten-password',
-    loadChildren: ()=> import('./auth/forgotten-password/forgotten-password.module').then(m=> m.ForgottenPasswordPageModule),
+    loadChildren: () => import('./auth/forgotten-password/forgotten-password.module').then(m => m.ForgottenPasswordPageModule),
     canActivate: [IsLoginGuard]
   },
   {
-    path: 'home',
-    loadChildren: () => import('./HomePages/home/home.module').then( m => m.HomePageModule)
+    path: 'user-update',
+    loadChildren: () => import('./user-update/user-update.module').then(m => m.UserUpdatePageModule),
+    canActivate: [AuthGuard]
   },
   {
-    path: 'search',
-    loadChildren: () => import('./HomePages/search/search.module').then( m => m.SearchPageModule)
-  },
-  {
-    path: 'user',
-    loadChildren: () => import('./HomePages/user/user.module').then( m => m.UserPageModule)
+    path: 'post',
+    loadChildren: () => import('./post/post.module').then(m => m.PostPageModule),
+    canActivate: [AuthGuard]
   }
+
+
 
 
 ];
